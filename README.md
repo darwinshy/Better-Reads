@@ -6,8 +6,11 @@ Good Reads clone using Java, Spring Boot, and Apache Cassandra.
 _________________________________________________________________
 ### Technology Used 
 Application Tier: Spring Boot
+
 Database: Apache Cassandra
+
 Data Layer: Spring Data Cassandra
+
 Security: Spring Security
 _________________________________________________________________
 
