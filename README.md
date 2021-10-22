@@ -1,6 +1,6 @@
 _________________________________________________________________
 # Better-Reads
-Good Reads clone using Java, Spring Boot, and Apache Cassandra.
+<a href="https://www.goodreads.com/">Good Reads</a> clone using Java, Spring Boot, and Apache Cassandra.
 (A full web application that is scalable and highly available)
 
 _________________________________________________________________
