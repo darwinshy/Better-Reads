@@ -1,10 +1,15 @@
+datadump:
+    location:
+        author: D:\Project Directory\[WEB] BetterReads\dumps\ol_dump_authors_2021-10-13.txt
+        work: D:\Project Directory\[WEB] BetterReads\dumps\ol_dump_works_2021-10-13.txt
+
 spring:
     data:
         cassandra:
             keyspace-name : main
             username: CHnEILUokOLLPARZRWnFJXZu
             password: bPrhrRbBiONz7WBeT5Nd,Qdtz9W7qQ,DZpCbZiIG,0nmQZbWu,wQ8+IXPzf-p.7NjsIrM.CNEJx9bcdDLGXsGoCDiH+I3XJ.sWBaXf5f,e+pL-xtbCfQDt9NFFPqeeHh
-            schema-action: create-if-not-exists
+            schema-action: recreate
             request.timeout: 10s
             connection:
                 connect-timeout:  10s
