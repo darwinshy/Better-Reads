@@ -7,7 +7,6 @@ import io.java.betterreadsdataloader.book.BookRepository;
 import io.java.betterreadsdataloader.connection.DataStaxAstraProperties;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,12 +36,16 @@ public class BetterreadsDataLoaderApplication {
   @Autowired
   BookRepository bookRepository;
 
+  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+
   // Get the paths to the file to load from yaml file
   @Value("${datadump.location.author}")
   private String authorsDumpLocation;
+  private Path authorsDumpPath = Path.of(authorsDumpLocation);
 
   @Value("${datadump.location.work}")
   private String worksDumpLocation;
+  private Path worksDumpPath = Path.of(worksDumpLocation);
 
   public static void main(String[] args) {
     SpringApplication.run(BetterreadsDataLoaderApplication.class, args);
@@ -55,7 +58,6 @@ public class BetterreadsDataLoaderApplication {
   }
 
   private void initWorks() {
-    Path worksDumpPath = Path.of(worksDumpLocation);
 
     try (Stream<String> lines = Files.lines(worksDumpPath)) {
       lines.forEach(line -> {
@@ -74,7 +76,6 @@ public class BetterreadsDataLoaderApplication {
   }
 
   private void initAuthors() {
-    Path authorsDumpPath = Path.of(authorsDumpLocation);
 
     try (Stream<String> lines = Files.lines(authorsDumpPath)) {
       lines.forEach(line -> {
@@ -113,8 +114,6 @@ public class BetterreadsDataLoaderApplication {
 
   private Book getBookFromLine(String line) {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
-
     try {
       String jsonString = line.substring(line.indexOf("{"));
       JSONObject json = new JSONObject(jsonString);
@@ -138,9 +137,8 @@ public class BetterreadsDataLoaderApplication {
       List<String> covers = new ArrayList<>();
 
       if (coversObj != null)
-        for (int i = 0; i < coversObj.length(); i++) {
+        for (int i = 0; i < coversObj.length(); i++)
           covers.add(coversObj.getString(i));
-        }
 
       JSONArray authorsObj = json.optJSONArray("authors");
       List<String> authorIds = new ArrayList<>();
